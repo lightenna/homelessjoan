@@ -48,14 +48,27 @@ class DefaultController extends Controller
         return $mentionsObject;
     }
 
-    private function findRemovedUsers($mentions)
+    private function findRemovedUsers($mentionsObject)
     {
-
+        $filteredMentions = array_filter($mentionsObject, function($tweet) {
+            #return !!(strstr($tweet->text, "hello"));
+            return !!(strstr($tweet->text, "remove"));
+        });
+        return array_map(function($tweet) {
+            return $tweet->user->screen_name;
+        }, $filteredMentions) ;
     }
 
-    private function filterMentionsByUser($user_blacklist, $mentions)
+    private function filterMentionsByUser($user_blacklist, $mentionsObject)
     {
-        return $mentions;
+        $filteredMentions = [];
+        foreach($mentionsObject as $tweet) {
+
+            if (! in_array($tweet->user->screen_name, $user_blacklist) ) {
+                $filteredMentions[] = $tweet;
+            }
+        };
+        return $filteredMentions;
     }
 
 

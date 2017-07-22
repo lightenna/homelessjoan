@@ -19,8 +19,48 @@ $mentions = $twitter->buildOauth($url, $requestMethod)
 
 $mentionsObject = json_decode($mentions);
 
-print_r( $mentionsObject[0]->user->name);
-print_r("\n");
-print_r( $mentionsObject[0]->text);
+function findRemovedUsers($mentionsObject) {
+    $filteredMentions = array_filter($mentionsObject, function($tweet) {
+        return !!(strstr($tweet->text, "hello"));
+        #return !!(strstr($tweet->text, "remove"));
+    });
+    return array_map(function($tweet) {
+        return $tweet->user->screen_name;
+    }, $filteredMentions) ;
+}
+
+$blacklist = findRemovedUsers($mentionsObject);
+
+
+function filterMentionsByUser($user_blacklist, $mentionsObject) {
+    $filteredMentions = [];
+    foreach($mentionsObject as $tweet) {
+
+        if (! in_array($tweet->user->screen_name, $user_blacklist) ) {
+            $filteredMentions[] = $tweet;
+
+        }
+
+    };
+    return $filteredMentions;
+};
+
+
+ $filteredMentions =  filterMentionsByUser($blacklist, $mentionsObject);
+
+
+
+foreach($filteredMentions as $tweet) {
+    print_r( $tweet->user->name);
+    print_r(", ");
+    print_r( $tweet->user->screen_name);
+    print_r(", ");
+    print_r( $tweet->text);
+    print_r("\n");
+}
+
+
+
+
 
 ?>
