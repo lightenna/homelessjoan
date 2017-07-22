@@ -1,8 +1,19 @@
-{{ include('AppBundle:common:partial.header.html.twig') }}
+{{ include('AppBundle:common:partial.header.html.twig', {title: '@HomelessJane'}) }}
+
+<h1>@HomelessJoan</h1>
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h4 class="panel-title">@homelessjane Services Directory</h4>
+        <h4 class="panel-title">Add your service</h4>
+    </div>
+    <div class="panel-body">
+        <p>To add your service </p>
+    </div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">@homelessjoan Services Directory</h4>
     </div>
     <div class="panel-body">
         {# loop through the mentions and display #}
@@ -13,6 +24,8 @@
         </ul>
     </div>
 </div>
+
+<p></p>
 
 {{ include('AppBundle:common:partial.footer.html.twig') }}
 
