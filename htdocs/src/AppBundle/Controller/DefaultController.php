@@ -55,7 +55,7 @@ class DefaultController extends Controller
 
     private function filterMentionsByUser($user_blacklist, $mentions)
     {
-
+        return $mentions;
     }
 
 
