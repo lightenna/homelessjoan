@@ -38,9 +38,7 @@ function filterMentionsByUser($user_blacklist, $mentionsObject) {
 
         if (! in_array($tweet->user->screen_name, $user_blacklist) ) {
             $filteredMentions[] = $tweet;
-
         }
-
     };
     return $filteredMentions;
 };
