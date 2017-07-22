@@ -1,0 +1,22 @@
+{% if (errorMessage is defined) %}
+<div class="alert alert-danger fade in" id="common_error_message_container">
+    <h4 class="panel-title">Error</h4>
+    <p>{{ errorMessage }}</p>
+</div>
+<script>
+    // outer closure
+    (function () {
+        // create q only if it doesn't exist
+        window.uncompt_jsq = window.uncompt_jsq || [];
+        window.uncompt_jsq[window.uncompt_jsq.length] = {
+            'method': function($) {
+                ShopifyApp.flashNotice('There was a problem.  Please check error.');
+            },
+            'context': this,
+            'condition': function () {
+                return true;
+            }
+        };
+    }());
+</script>
+{% endif %}
