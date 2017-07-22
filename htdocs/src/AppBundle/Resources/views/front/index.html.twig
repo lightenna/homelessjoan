@@ -1,19 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title></title>
-    {{ include('AppBundle:common:partial.header-bootstrap.html.twig') }}
-</head>
-
-<body class="admin admin-{{ appKey }}">
-<!-- {{ appName }} -->
+{{ include('AppBundle:common:partial.header.html.twig') }}
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h4 class="panel-title">First panel</h4>
+        <h4 class="panel-title">@homelessjane Services Directory</h4>
     </div>
     <div class="panel-body">
-        This is this is the content
+        {# loop through the mentions and display #}
+        <ul>
+        {% for service in mentions %}
+            <li>{{ service.text }}</li>
+        {% endfor %}
+        </ul>
     </div>
 </div>
 
