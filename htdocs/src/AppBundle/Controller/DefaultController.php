@@ -15,6 +15,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $mentions = $this->getTwitterActivity();
+        $this->substituteNames($mentions);
         $user_blacklist = $this->findRemovedUsers($mentions);
         $filtered_mentions = $this->filterMentionsByUser($user_blacklist, $mentions);
         // replace this example code with whatever you need
@@ -46,6 +47,15 @@ class DefaultController extends Controller
         // parse response
         $mentionsObject = json_decode($mentions);
         return $mentionsObject;
+    }
+
+    private function substituteNames(&$mentions)
+    {
+        foreach ($mentions as &$mention) {
+            // substitute HomelessJoan
+            $revised = str_ireplace('@HomelessJoan', $mention->user->name . ' (@' . $mention->user->screen_name . ')', $mention->text);
+            $mention->text = $revised;
+        }
     }
 
     private function findRemovedUsers($mentionsObject)
